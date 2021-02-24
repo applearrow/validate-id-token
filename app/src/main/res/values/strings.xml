@@ -3,19 +3,21 @@
     <string name="default_email_address">joe@gmail.com</string>
 
     <!-- Configurations -->
-    <string name="ot_configuration">Config</string>
+    <string name="configuration">Config</string>
+    <string name="validate">Validate</string>
+    <string name="decode">Decode</string>
     <string name="ot_sync_profile">Sync user profile</string>
 
-    <string name="app_id_pref">app_id</string>
-    <string name="storage_location_pref">storage_location</string>
+    <string name="id_token_pref">id_token</string>
+    <string name="jwks_json_pref">jwks_uri</string>
     <string name="ui_language_pref">ui_language</string>
     <string name="data_subject_pref">data_subject</string>
     <string name="sync_profile_pref">sync_profile</string>
     <string name="sync_profile_method_pref">sync_profile_method</string>
     <string name="email_address_pref">email_address</string>
 
-    <string name="app_id_pref_title">Application Id</string>
-    <string name="storage_location_pref_title">Storage location</string>
+    <string name="id_token_pref_title">ID Token</string>
+    <string name="jwks_json_pref_title">JWKS json</string>
     <string name="ui_language_pref_title">UI language</string>
     <string name="data_subject_pref_title">Data Subject</string>
     <string name="sync_profile_pref_title">Initially sync profile using either data subject or JWT</string>
@@ -25,9 +27,9 @@
     <string name="summary_on_sync_profile_pref">YES, synchronize consent on init</string>
     <string name="summary_off_sync_profile_pref">NO, do not synchronize consent on init</string>
 
-    <!-- Default values for config -->
-    <string name="default_storage_location" translatable="false">cdn.cookielaw.org</string>
-    <string name="default_mobile_app_id" translatable="false">33c14410-0e18-4a20-a592-2f4f15eaf22e-test</string>
+    <!-- Default values for configuration -->
+    <string name="default_jwks" translatable="false">"https://id-shadow.sage.com/.well-known/jwks.json"</string>
+    <string name="default_id_token" translatable="false">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlJVUXlRME0wTWtOQk5rUkJOVGxETXpaQ056VXhPVVUyUkRZNU5EbEJOVVF6T0VSQk1EQXdNQSJ9.eyJodHRwczovL3NhZ2UuY29tL3NjaS9pZGVudGl0eV9pZHMiOlsiYXV0aDB8MTI3MmIzYjllZTVhOGM5NjFiZTlkZDRkY2ZlZmU5ZDAxMGU0MDZkZjY4OWM2ODNhIiwiU2FnZUlEfGQ1MjFhYzM4LTc1MDEtNDEwYS1hNjE5LTg2M2U4ZGYyMDg1NyJdLCJodHRwczovL3NhZ2UuY29tL3NjaS9wcm9maWxlcyI6W3siaWRlbnRpdHlfaWQiOiJTYWdlSUR8ZDUyMWFjMzgtNzUwMS00MTBhLWE2MTktODYzZThkZjIwODU3IiwiZW1haWwiOiJwYWJsby5tYW56YW5vQHNhZ2UuY29tIiwibmFtZSI6IlBhYmxvIE1hbnphbm8ifV0sImlzcyI6Imh0dHBzOi8vaWQtc2hhZG93LnNhZ2UuY29tLyIsInN1YiI6ImF1dGgwfDEyNzJiM2I5ZWU1YThjOTYxYmU5ZGQ0ZGNmZWZlOWQwMTBlNDA2ZGY2ODljNjgzYSIsImF1ZCI6InB6S2VHb2UweFM2cjA3TUdnT0cwMW43OG43ZTk0TEdLIiwiaWF0IjoxNjE0MDAxNzE2LCJleHAiOjE2MTQwMzA1MTYsIm5vbmNlIjoiTVdCS3lQWl91TUE0clpOTmh1Y09QZyJ9.u0Ov1ZEEXoqvYLpLsjQzSs9V9FPBk4_BSO0FI0DMuCouein1IqErdqU_3GBWyUE08ZCiE66J5TqHEAJmXDk827823R52acUO4m64k4XMMnsbINZGkFR1pEYRVL4LFDNDHgS9fOrxDMFDfhdz4h2sZ3zartSS-2fmrPCvzYFF9cG9HVHs-4a0IAjc1SwAStfkjAtEjiqPiI0-6puFgYv62EqckDJElP18fkTmT9Ep2NmAZWxFnfmRKmO5k5fOhBprwd68-i2HVg51ZYkyl_vPrNzrWfUCcIKvhDt781RM4LdruAyZSUJbeQ-FqEKDxvkNdH3U2gfvd9oT7Oz43ffchg</string>
     <string name="default_ui_language" translatable="false">en</string>
 
 </resources>

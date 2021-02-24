@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import dev.applearrow.idtoken.R
 import dev.applearrow.idtoken.databinding.MainFragmentBinding
 import dev.applearrow.idtoken.ui.showError
 
@@ -25,11 +26,30 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    private fun onButtonClick(view: View): Unit {
+        val action = when (view.id) {
+            R.id.decodeToken -> MainFragmentDirections.actionMainFragmentToJsonFragment(
+                DetailScreen.DECODED_TOKEN.name
+            )
+            else -> null
+        }
+        action?.let {
+            findNavController().navigate(it)
+        }
+    }
+
     private fun setListeners() {
 
         binding.otConfig.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToConfigFragment())
         }
+
+        binding.decodeToken.setOnClickListener(::onButtonClick)
+
+        binding.validateToken.setOnClickListener {
+            viewModel.validateToken()
+        }
+
     }
 
 
@@ -50,6 +70,14 @@ class MainFragment : Fragment() {
                 viewModel.hideError()
             }
         }
+
+        viewModel.strError.observe(viewLifecycleOwner) { msg ->
+            if (msg.isNotBlank()) {
+                binding.root.showError(msg)
+                viewModel.hideError()
+            }
+        }
+
     }
 
 }

@@ -40,8 +40,29 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
                 android:minWidth="@dimen/buttons_min_width"
-                android:text="@string/ot_configuration" />
+                android:text="@string/configuration" />
 
+            <Button
+                android:id="@+id/decodeToken"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:minWidth="@dimen/buttons_min_width"
+                android:text="@string/decode" />
+
+            <Button
+                android:id="@+id/validateToken"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:minWidth="@dimen/buttons_min_width"
+                android:text="@string/validate" />
         </LinearLayout>
 
     </ScrollView>
