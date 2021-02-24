@@ -1,10 +1,10 @@
-package dev.applearrow.poctemplate.ui.main
+package dev.applearrow.idtoken.ui.main
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
-import dev.applearrow.poctemplate.R
+import dev.applearrow.idtoken.R
 
 
 class MainViewModel(app: Application) : AndroidViewModel(app) {

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="dev.applearrow.poctemplate.ui.main.MainFragment"
+        android:name="dev.applearrow.idtoken.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/configFragment"
-        android:name="dev.applearrow.poctemplate.ui.main.ConfigFragment"
+        android:name="dev.applearrow.idtoken.ui.main.ConfigFragment"
         android:label="config_fragment" />
 
 </navigation>

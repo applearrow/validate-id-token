@@ -1,4 +1,4 @@
-package dev.applearrow.poctemplate
+package dev.applearrow.idtoken
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

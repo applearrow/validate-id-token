@@ -1,11 +1,11 @@
-package dev.applearrow.poctemplate.ui.main
+package dev.applearrow.idtoken.ui.main
 
 import android.os.Bundle
 import android.text.InputType
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import dev.applearrow.poctemplate.R
+import dev.applearrow.idtoken.R
 
 class ConfigFragment : PreferenceFragmentCompat(),
     PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {

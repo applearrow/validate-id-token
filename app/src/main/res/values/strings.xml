@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PocTemplate</string>
+    <string name="app_name">IdToken</string>
     <string name="default_email_address">joe@gmail.com</string>
 
     <!-- Configurations -->

@@ -1,4 +1,4 @@
-package dev.applearrow.poctemplate
+package dev.applearrow.idtoken
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

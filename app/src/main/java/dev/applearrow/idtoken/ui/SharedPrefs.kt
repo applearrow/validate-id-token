@@ -1,4 +1,4 @@
-package dev.applearrow.poctemplate.ui
+package dev.applearrow.idtoken.ui
 
 import android.app.Application
 import android.content.Context

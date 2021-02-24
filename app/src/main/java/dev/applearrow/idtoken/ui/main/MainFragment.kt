@@ -1,4 +1,4 @@
-package dev.applearrow.poctemplate.ui.main
+package dev.applearrow.idtoken.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import dev.applearrow.poctemplate.databinding.MainFragmentBinding
-import dev.applearrow.poctemplate.ui.showError
+import dev.applearrow.idtoken.databinding.MainFragmentBinding
+import dev.applearrow.idtoken.ui.showError
 
 class MainFragment : Fragment() {
 

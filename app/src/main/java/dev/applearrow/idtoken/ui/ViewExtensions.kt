@@ -1,4 +1,4 @@
-package dev.applearrow.poctemplate.ui
+package dev.applearrow.idtoken.ui
 
 /**
  * [View] extension functions

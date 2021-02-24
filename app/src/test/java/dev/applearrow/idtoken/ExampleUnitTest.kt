@@ -1,4 +1,4 @@
-package dev.applearrow.poctemplate
+package dev.applearrow.idtoken
 
 import org.junit.Test
 
