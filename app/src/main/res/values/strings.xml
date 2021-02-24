@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">PocTemplate</string>
+    <string name="default_email_address">joe@gmail.com</string>
+
+    <!-- Configurations -->
+    <string name="ot_configuration">Config</string>
+    <string name="ot_sync_profile">Sync user profile</string>
+
+    <string name="app_id_pref">app_id</string>
+    <string name="storage_location_pref">storage_location</string>
+    <string name="ui_language_pref">ui_language</string>
+    <string name="data_subject_pref">data_subject</string>
+    <string name="sync_profile_pref">sync_profile</string>
+    <string name="sync_profile_method_pref">sync_profile_method</string>
+    <string name="email_address_pref">email_address</string>
+
+    <string name="app_id_pref_title">Application Id</string>
+    <string name="storage_location_pref_title">Storage location</string>
+    <string name="ui_language_pref_title">UI language</string>
+    <string name="data_subject_pref_title">Data Subject</string>
+    <string name="sync_profile_pref_title">Initially sync profile using either data subject or JWT</string>
+    <string name="sync_profile_method_pref_title">Identifier used to synchronize user profile</string>
+    <string name="email_address_pref_title">Email address used in JWT</string>
+
+    <string name="summary_on_sync_profile_pref">YES, synchronize consent on init</string>
+    <string name="summary_off_sync_profile_pref">NO, do not synchronize consent on init</string>
+
+    <!-- Default values for config -->
+    <string name="default_storage_location" translatable="false">cdn.cookielaw.org</string>
+    <string name="default_mobile_app_id" translatable="false">33c14410-0e18-4a20-a592-2f4f15eaf22e-test</string>
+    <string name="default_ui_language" translatable="false">en</string>
+
+</resources>

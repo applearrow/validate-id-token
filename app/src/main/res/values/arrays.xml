@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lang_entries">
+        <item>English</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>Invalid</item>
+    </string-array>
+
+    <string-array name="lang_entry_values">
+        <item>en</item>
+        <item>es</item>
+        <item>fr</item>
+        <item>xx</item>
+    </string-array>
+
+    <string-array name="sync_method_entries">
+        <item>Data subject</item>
+        <item>JWT</item>
+    </string-array>
+
+    <string-array name="sync_method_entry_values">
+        <item>SYNC_WITH_DATA_SUBJECT</item>
+        <item>SYNC_WITH_JWT</item>
+    </string-array>
+
+</resources>

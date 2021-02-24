@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/ot_configuration">
+
+        <EditTextPreference
+            app:dialogTitle="@string/data_subject_pref_title"
+            app:key="@string/data_subject_pref"
+            app:title="@string/data_subject_pref_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="@string/default_ui_language"
+            app:dialogTitle="@string/ui_language_pref_title"
+            app:entries="@array/lang_entries"
+            app:entryValues="@array/lang_entry_values"
+            app:key="@string/ui_language_pref"  
+            app:title="@string/ui_language_pref_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/default_storage_location"
+            app:dialogTitle="@string/storage_location_pref_title"
+            app:key="@string/storage_location_pref"
+            app:title="@string/storage_location_pref_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/default_mobile_app_id"
+            app:dialogTitle="@string/app_id_pref_title"
+            app:key="@string/app_id_pref"
+            app:title="@string/app_id_pref_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/ot_sync_profile">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/sync_profile_pref"
+            android:title="@string/sync_profile_pref_title"
+            app:summaryOff="@string/summary_off_sync_profile_pref"
+            app:summaryOn="@string/summary_on_sync_profile_pref" />
+
+        <ListPreference
+            android:key="@string/sync_profile_method_pref"
+            app:defaultValue="SYNC_WITH_DATA_SUBJECT"
+            app:dependency="@string/sync_profile_pref"
+            app:dialogTitle="@string/sync_profile_method_pref_title"
+            app:entries="@array/sync_method_entries"
+            app:entryValues="@array/sync_method_entry_values"
+            app:title="@string/sync_profile_method_pref_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:defaultValue="@string/default_email_address"
+            app:dependency="@string/sync_profile_pref"
+            app:dialogTitle="@string/email_address_pref_title"
+            app:key="@string/email_address_pref"
+            app:title="@string/email_address_pref_title"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
