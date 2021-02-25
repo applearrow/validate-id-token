@@ -19,6 +19,7 @@ import dev.applearrow.idtoken.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
 import java.net.URL
 import java.security.interfaces.RSAPublicKey
 
@@ -31,6 +32,11 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
 
     companion object {
         const val TAG = "MainVm"
+
+        val arrays = listOf(
+            "https://sage.com/sci/identity_ids",
+            "https://sage.com/sci/profiles"
+        )
     }
 
     private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(app)
@@ -125,15 +131,25 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
             jwt.id?.let { sb.appendLine("id:".padStart(len) + it) }
 
             jwt.claims.keys.forEach { key ->
-                val value = jwt.getClaim(key).asString()
-                value?.let {
-                    sb.appendLine("$key:".padStart(len) + value)
+                Log.d(TAG, "$key")
+                val value = jwt.getClaim(key)
+                if (key in arrays) {
+                    val ids = value.asList(Object::class.java)
+                    ids?.let {
+                        sb.appendLine("$key:".padStart(len) + JSONArray(ids).toString(2))
+                    }
+                } else {
+                    val vStr = value.asString()
+                    vStr?.let {
+                        sb.appendLine("$key:".padStart(len) + vStr)
+                    }
                 }
             }
 
             decodedTokenStr.value = sb.toString()
             Log.d(TAG, "${decodedTokenStr.value}")
         } catch (e: JWTDecodeException) {
+            Log.e(TAG, "${e.message}")
             postError(e.message)
         }
     }
