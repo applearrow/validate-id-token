@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.main.MainFragment">
 
@@ -19,50 +20,67 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/decodeToken"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:minWidth="@dimen/buttons_min_width"
+                    android:text="@string/decode" />
+
+                <Button
+                    android:id="@+id/validateToken"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="10dp"
+                    android:minWidth="@dimen/buttons_min_width"
+                    android:text="@string/validate" />
+
+                <Button
+                    android:id="@+id/otConfig"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:minWidth="@dimen/buttons_min_width"
+                    android:text="@string/configuration" />
+
+                <ImageView
+                    android:id="@+id/isValid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:minWidth="24dp"
+                    android:minHeight="24dp"
+                    app:isVisible="@{viewmodel.isValidVisible}" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="30dp"
                 android:layout_marginEnd="@dimen/margin_normal"
                 android:gravity="center"
+                android:textIsSelectable="true"
                 android:textSize="18sp"
                 tools:text="message" />
 
-            <Button
-                android:id="@+id/otConfig"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:minWidth="@dimen/buttons_min_width"
-                android:text="@string/configuration" />
-
-            <Button
-                android:id="@+id/decodeToken"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:minWidth="@dimen/buttons_min_width"
-                android:text="@string/decode" />
-
-            <Button
-                android:id="@+id/validateToken"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:minWidth="@dimen/buttons_min_width"
-                android:text="@string/validate" />
         </LinearLayout>
 
     </ScrollView>

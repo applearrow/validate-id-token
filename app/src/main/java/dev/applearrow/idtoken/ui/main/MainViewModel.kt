@@ -1,16 +1,19 @@
 package dev.applearrow.idtoken.ui.main
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.util.Log
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
+import com.auth0.jwk.JwkException
 import com.auth0.jwk.UrlJwkProvider
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.auth0.jwt.exceptions.InvalidClaimException
-import com.auth0.jwt.exceptions.TokenExpiredException
+import com.auth0.jwt.exceptions.JWTDecodeException
+import com.auth0.jwt.exceptions.JWTVerificationException
 import com.auth0.jwt.interfaces.DecodedJWT
 import dev.applearrow.idtoken.R
 import kotlinx.coroutines.Dispatchers
@@ -31,20 +34,29 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(app)
-    val intMsg = MutableLiveData(R.string.app_name)
+    val intMsg = MutableLiveData(0)
+    val strMsg = MutableLiveData<String>()
     val intError = MutableLiveData(0)
     val strError = MutableLiveData<String>()
 
+    val isValidVisible = MutableLiveData<Boolean>(false)
+    val intValidIcon = MutableLiveData(0)
+
+    val encodedTokenStr = MutableLiveData<String>()
     val decodedTokenStr = MutableLiveData<String>()
 
-    private val jwkProvider = UrlJwkProvider(
-        URL("https://id-shadow.sage.com/.well-known/jwks.json")
-    )
-    private val token = sharedPreferences.getString(
-        app.getString(R.string.id_token_pref),
-        app.getString(R.string.default_id_token)
-    )
+    private lateinit var token: String
+    private lateinit var issuer: String
+    private var validateAudience = false
+    private lateinit var audience: String
     private lateinit var jwt: DecodedJWT
+    private lateinit var jwkProvider: UrlJwkProvider
+
+    private val listener: SharedPreferences.OnSharedPreferenceChangeListener =
+        SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences: SharedPreferences, key: String ->
+            readConfig()
+            decode()
+        }
 
     fun hideError() {
         intError.value = 0
@@ -52,48 +64,82 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     init {
-        intMsg.value = R.string.app_name
+        readConfig()
         decode()
+
+        sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 
-    fun decode() {
-        jwt = JWT.decode(token)
+    private fun readConfig() {
+        token = sharedPreferences.getString(
+            app.getString(R.string.jwt_token_pref),
+            app.getString(R.string.default_token)
+        )!!
 
-        val sp = "    "
-        Log.d(TAG, "header=${jwt.header.toString()}")
-        Log.d(TAG, "payload=${jwt.payload}")
-        Log.d(TAG, "signature=${jwt.signature}")
+        issuer = sharedPreferences.getString(
+            app.getString(R.string.issuer_pref),
+            app.getString(R.string.default_issuer)
+        )!!
 
-        val sb = StringBuilder()
-        sb.appendLine("header:")
-        sb.appendLine("${sp}algorithm: ${jwt.algorithm}")
-        jwt.type?.let { sb.appendLine("${sp}type: $it") }
-        jwt.contentType?.let { sb.appendLine("${sp}contentType: $it") }
-        sb.appendLine("${sp}keyId: ${jwt.keyId}")
+        validateAudience = sharedPreferences.getBoolean(
+            app.getString(R.string.validate_audience_pref),
+            false
+        )
 
-        sb.appendLine()
-        sb.appendLine("payload:")
-        sb.appendLine("${sp}issuer:    ${jwt.issuer}")
-        sb.appendLine("${sp}subject:   ${jwt.subject}")
-        sb.appendLine("${sp}audience:  ${jwt.audience}")
-        sb.appendLine("${sp}issuedAt:  ${jwt.issuedAt}")
-        sb.appendLine("${sp}expiresAt: ${jwt.expiresAt}")
-        jwt.notBefore?.let { sb.appendLine("${sp}notBefore: $it") }
+        audience = sharedPreferences.getString(
+            app.getString(R.string.audience_pref),
+            app.getString(R.string.default_audience)
+        )!!
 
-        jwt.id?.let { sb.appendLine("${sp}id: $it") }
+        jwkProvider = UrlJwkProvider(
+            URL("$issuer.well-known/jwks.json")
+        )
+    }
 
-        jwt.claims.keys.forEach { key ->
-            val value = jwt.getClaim(key).asString()
-            value?.let {
-                sb.appendLine("${sp}$key: $value")
+    private fun decode() {
+        try {
+            encodedTokenStr.value = token
+            jwt = JWT.decode(token)
+
+            Log.d(TAG, "header=${jwt.header.toString()}")
+            Log.d(TAG, "payload=${jwt.payload}")
+            Log.d(TAG, "signature=${jwt.signature}")
+
+            val len = 15
+            val sb = StringBuilder()
+            sb.appendLine("Header")
+            sb.appendLine("algorithm:".padStart(len) + jwt.algorithm)
+            jwt.type?.let { sb.appendLine("type:".padStart(len) + it) }
+            jwt.contentType?.let { sb.appendLine("contentType:".padStart(len) + it) }
+            sb.appendLine("keyId:".padStart(len) + jwt.keyId)
+
+            sb.appendLine()
+            sb.appendLine("Payload")
+            sb.appendLine("issuer:".padStart(len) + jwt.issuer)
+            sb.appendLine("subject:".padStart(len) + jwt.subject)
+            sb.appendLine("audience:".padStart(len) + jwt.audience)
+            sb.appendLine("issuedAt:".padStart(len) + jwt.issuedAt)
+            sb.appendLine("expiresAt:".padStart(len) + jwt.expiresAt)
+            jwt.notBefore?.let { sb.appendLine("notBefore:".padStart(len) + it) }
+
+            jwt.id?.let { sb.appendLine("id:".padStart(len) + it) }
+
+            jwt.claims.keys.forEach { key ->
+                val value = jwt.getClaim(key).asString()
+                value?.let {
+                    sb.appendLine("$key:".padStart(len) + value)
+                }
             }
-        }
 
-        decodedTokenStr.value = sb.toString()
-        Log.d(TAG, "${decodedTokenStr.value}")
+            decodedTokenStr.value = sb.toString()
+            Log.d(TAG, "${decodedTokenStr.value}")
+        } catch (e: JWTDecodeException) {
+            postError(e.message)
+        }
     }
 
     fun validateToken() {
+        isValidVisible.value = false
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 internalValidateToken()
@@ -101,26 +147,37 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    suspend fun internalValidateToken() {
-        val jwk = jwkProvider.get(jwt.keyId)
-        val publicKey = jwk.publicKey as? RSAPublicKey ?: throw Exception("Invalid public key")
-        val algorithm = when (jwk.algorithm) {
-            "RS256" -> Algorithm.RSA256(publicKey, null)
-            else -> throw Exception("Unsupported Algorithm")
-        }
-        val verifier = JWT.require(algorithm) // signature
-            .withIssuer("https://id-shadow.sage.com/") // iss
-            .withAudience("pzKeGoe0xS6r07MGgOG01n78n7e94LGK") // aud
-            .build()
+    @WorkerThread
+    private fun postError(message: String?) {
+        intValidIcon.postValue(R.drawable.thumb_down)
+        strError.postValue(message)
+        isValidVisible.postValue(true)
+    }
+
+    private suspend fun internalValidateToken() {
 
         try {
-            val decodedJwt = verifier.verify(token)
-        } catch (e: InvalidClaimException) {
-            strError.postValue(e.message)
-        } catch (e: TokenExpiredException) {
-            strError.postValue(e.message)
-        }
+            val jwk = jwkProvider.get(jwt.keyId)
+            val publicKey = jwk.publicKey as? RSAPublicKey ?: throw Exception("Invalid public key")
+            val algorithm = when (jwk.algorithm) {
+                "RS256" -> Algorithm.RSA256(publicKey, null)
+                else -> throw Exception("Unsupported Algorithm")
+            }
 
+            val verifier = JWT.require(algorithm) // signature
+                .withIssuer(issuer) // issuer
+                .apply { if (validateAudience) withAudience(audience) }  // audience
+                .build()
+
+            val decodedJwt = verifier.verify(token)
+            intValidIcon.postValue(R.drawable.thumb_up)
+            isValidVisible.postValue(true)
+
+        } catch (e: JwkException) {
+            postError(e.message)
+        } catch (e: JWTVerificationException) {
+            postError(e.message)
+        }
     }
 }
 

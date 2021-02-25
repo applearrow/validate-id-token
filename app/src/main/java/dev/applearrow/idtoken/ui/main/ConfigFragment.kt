@@ -31,7 +31,7 @@ class ConfigFragment : PreferenceFragmentCompat(),
             }
         }
 
-        val key = resources.getString(R.string.email_address_pref)
+        val key = resources.getString(R.string.audience_pref)
         val editTextPreference = findPreference<EditTextPreference>(key)
         editTextPreference?.let { editTextPref ->
             editTextPref.setOnBindEditTextListener {

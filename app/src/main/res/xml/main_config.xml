@@ -2,64 +2,49 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/configuration">
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/configuration">
 
         <EditTextPreference
-            app:dialogTitle="@string/data_subject_pref_title"
-            app:key="@string/data_subject_pref"
-            app:title="@string/data_subject_pref_title"
+            app:defaultValue="@string/default_token"
+            app:dialogTitle="@string/jwt_token_pref_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/jwt_token_pref"
+            app:title="@string/jwt_token_pref_title"
             app:useSimpleSummaryProvider="true" />
 
-        <ListPreference
-            app:defaultValue="@string/default_ui_language"
-            app:dialogTitle="@string/ui_language_pref_title"
-            app:entries="@array/lang_entries"
-            app:entryValues="@array/lang_entry_values"
-            app:key="@string/ui_language_pref"  
-            app:title="@string/ui_language_pref_title"
+        <EditTextPreference
+            app:defaultValue="@string/default_issuer"
+            app:dialogTitle="@string/issuer_pref_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/issuer_pref"
+            app:title="@string/issuer_pref_title"
             app:useSimpleSummaryProvider="true" />
 
         <EditTextPreference
             app:defaultValue="@string/default_jwks"
             app:dialogTitle="@string/jwks_json_pref_title"
+            app:iconSpaceReserved="false"
             app:key="@string/jwks_json_pref"
             app:title="@string/jwks_json_pref_title"
             app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
-            app:defaultValue="@string/default_id_token"
-            app:dialogTitle="@string/id_token_pref_title"
-            app:key="@string/id_token_pref"
-            app:title="@string/id_token_pref_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/ot_sync_profile">
-
         <SwitchPreference
             android:defaultValue="false"
-            android:key="@string/sync_profile_pref"
-            android:title="@string/sync_profile_pref_title"
-            app:summaryOff="@string/summary_off_sync_profile_pref"
-            app:summaryOn="@string/summary_on_sync_profile_pref" />
-
-        <ListPreference
-            android:key="@string/sync_profile_method_pref"
-            app:defaultValue="SYNC_WITH_DATA_SUBJECT"
-            app:dependency="@string/sync_profile_pref"
-            app:dialogTitle="@string/sync_profile_method_pref_title"
-            app:entries="@array/sync_method_entries"
-            app:entryValues="@array/sync_method_entry_values"
-            app:title="@string/sync_profile_method_pref_title"
-            app:useSimpleSummaryProvider="true" />
+            android:key="@string/validate_audience_pref"
+            android:title="@string/validate_audience_pref_title"
+            app:iconSpaceReserved="false"
+            app:summaryOff="@string/summary_off_pref"
+            app:summaryOn="@string/summary_on_pref" />
 
         <EditTextPreference
-            app:defaultValue="@string/default_email_address"
-            app:dependency="@string/sync_profile_pref"
-            app:dialogTitle="@string/email_address_pref_title"
-            app:key="@string/email_address_pref"
-            app:title="@string/email_address_pref_title"
+            app:defaultValue="@string/default_audience"
+            app:dependency="@string/validate_audience_pref"
+            app:dialogTitle="@string/audience_pref_title"
+            app:iconSpaceReserved="false"
+            app:key="@string/audience_pref"
+            app:title="@string/audience_pref_title"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>
