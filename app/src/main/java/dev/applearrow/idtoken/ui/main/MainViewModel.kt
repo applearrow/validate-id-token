@@ -169,7 +169,7 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
                 .apply { if (validateAudience) withAudience(audience) }  // audience
                 .build()
 
-            val decodedJwt = verifier.verify(token)
+            verifier.verify(token)
             intValidIcon.postValue(R.drawable.thumb_up)
             isValidVisible.postValue(true)
 
