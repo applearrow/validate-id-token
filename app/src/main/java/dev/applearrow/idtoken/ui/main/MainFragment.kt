@@ -3,21 +3,25 @@ package dev.applearrow.idtoken.ui.main
 import android.graphics.Color
 import android.os.Bundle
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dev.applearrow.idtoken.R
 import dev.applearrow.idtoken.databinding.MainFragmentBinding
+import dev.applearrow.idtoken.ui.saveString
 import dev.applearrow.idtoken.ui.showError
 
 class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by activityViewModels()
     private lateinit var binding: MainFragmentBinding
-
+    private val args: MainFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +31,19 @@ class MainFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        args.jwtToken?.let {
+            saveString(getString(R.string.jwt_token_pref), it)
+            Log.d(TAG, "JWT = $it")
+        }
+        args.issuer?.let {
+            saveString(getString(R.string.issuer_pref), it)
+            Log.d(TAG, "ISSUER = $it")
+        }
+        viewModel.reinit()
     }
 
     private fun onButtonClick(view: View): Unit {
@@ -108,6 +125,10 @@ class MainFragment : Fragment() {
             }
         }
 
+    }
+
+    companion object {
+        const val TAG = "MainFrag"
     }
 
 }

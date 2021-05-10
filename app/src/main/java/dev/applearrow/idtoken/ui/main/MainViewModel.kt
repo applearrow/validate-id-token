@@ -70,22 +70,31 @@ class MainViewModel(val app: Application) : AndroidViewModel(app) {
     }
 
     init {
+        reinit()
+    }
+
+    fun reinit() {
         readConfig()
         decode()
-
         sharedPreferences.registerOnSharedPreferenceChangeListener(listener)
     }
 
     private fun readConfig() {
+        val defToken = app.getString(R.string.default_token)
         token = sharedPreferences.getString(
             app.getString(R.string.jwt_token_pref),
-            app.getString(R.string.default_token)
+            defToken
         )!!
+        if (token.isBlank()) token = defToken
+        Log.d(TAG, "JWT=${token}")
 
+        val defIssuer = app.getString(R.string.default_issuer)
         issuer = sharedPreferences.getString(
             app.getString(R.string.issuer_pref),
-            app.getString(R.string.default_issuer)
+            defIssuer
         )!!
+        if (issuer.isBlank()) issuer = defIssuer
+        Log.d(TAG, "issuer=${issuer}")
 
         validateAudience = sharedPreferences.getBoolean(
             app.getString(R.string.validate_audience_pref),

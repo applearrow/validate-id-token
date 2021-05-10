@@ -62,9 +62,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
-
     // implementation 'io.jsonwebtoken:jjwt:0.7.0'
     implementation "com.auth0:jwks-rsa:0.3.0"
     implementation "com.auth0:java-jwt:3.3.0"

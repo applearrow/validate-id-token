@@ -10,6 +10,17 @@
         android:name="dev.applearrow.idtoken.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment">
+
+        <argument
+            android:name="jwt_token"
+            android:defaultValue=""
+            app:argType="string" />
+
+        <argument
+            android:name="issuer"
+            android:defaultValue=""
+            app:argType="string" />
+
         <action
             android:id="@+id/action_mainFragment_to_configFragment"
             app:destination="@id/configFragment" />
